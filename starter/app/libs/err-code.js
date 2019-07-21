@@ -1,27 +1,52 @@
 'use strict';
 
-const { HttpException } = require('lin-mizar');
+const {
+    HttpException
+} = require('lin-mizar');
 const assert = require('assert');
-const { isInteger } = require('lodash');
+const {
+    isInteger
+} = require('lodash');
 
 class BookNotFound extends HttpException {
-  constructor (ex) {
-    super();
-    this.code = 404;
-    this.msg = '没有找到相关图书';
-    this.errorCode = 80010;
-    if (ex && ex.code) {
-      assert(isInteger(ex.code));
-      this.code = ex.code;
+    constructor(ex) {
+        super();
+        this.code = 404;
+        this.msg = '没有找到相关图书';
+        this.errorCode = 80010;
+        if (ex && ex.code) {
+            assert(isInteger(ex.code));
+            this.code = ex.code;
+        }
+        if (ex && ex.msg) {
+            this.msg = ex.msg;
+        }
+        if (ex && ex.errorCode) {
+            assert(isInteger(ex.errorCode));
+            this.errorCode = ex.errorCode;
+        }
     }
-    if (ex && ex.msg) {
-      this.msg = ex.msg;
-    }
-    if (ex && ex.errorCode) {
-      assert(isInteger(ex.errorCode));
-      this.errorCode = ex.errorCode;
-    }
-  }
 }
 
-module.exports = { BookNotFound };
+class mpBookNotFount extends HttpException {
+    constructor(ex) {
+        super();
+        this.code = 404;
+        this.msg = '未找到相关图书';
+        if (ex && ex.code) {
+            assert(isInteger(ex.code));
+            this.code = ex.code
+        }
+        if (ex && ex.msg) {
+            this.msg = ex.msg
+        }
+        if (ex && ex.errorCode) {
+            this.errorCode = ex.errorCode
+        }
+    }
+}
+
+module.exports = {
+    BookNotFound,
+    mpBookNotFount
+};
